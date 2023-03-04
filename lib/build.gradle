@@ -13,8 +13,10 @@ plugins {
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
     id 'maven-publish'
+    id 'signing'
 }
 group = "io.github.traceunit"
+archivesBaseName = "traceunit-junit5"
 version = "0.0.1"
 
 repositories {
@@ -24,27 +26,69 @@ repositories {
 }
 
 dependencies {
-    // This dependency is exported to consumers, that is to say found on their compile classpath.
-    api 'org.apache.commons:commons-math3:3.6.1'
-
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'io.opentelemetry:opentelemetry-api:1.23.1'
     implementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     implementation 'org.mockito:mockito-junit-jupiter:5.1.1'
-    implementation 'com.google.guava:guava:31.1-jre'
 }
+
 publishing {
-    publications {
-        mavenJava(MavenPublication) {
+    publications{
+        mavenJava(MavenPublication){
+
             groupId = 'io.github.traceunit'
             artifactId = 'traceunit-junit5'
-            version = "0.0.1"
+            version = '0.0.4'
             from components.java
+
+            pom {
+                name = 'traceunit-junit5'
+                description = 'TraceUnit extension for Junit5'
+                url = 'https://github.com/traceunit/traceunit-junit5'
+                inceptionYear = '2023'
+
+                licenses {
+                    license {
+                        name = 'MIT License'
+                        url = 'http://www.opensource.org/licenses/mit-license.php'
+                    }
+                }
+                developers {
+                    developer {
+                        id = 'dmytro.ch'
+                        name = 'Dmytro Chaban'
+                        email = 'dmi3coder@gmail.com'
+                    }
+                }
+                scm {
+                    connection='scm:git:git:github.com/traceunit/traceunit-junit5.git'
+                    developerConnection='scm:git:github.com/traceunit/traceunit-junit5.git'
+                    url='https://github.com/traceunit/traceunit-junit5'
+                }
+            }
         }
     }
+
     repositories {
         mavenLocal()
+        maven {
+            name = "OSSRH"
+            url = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+            credentials {
+                username = project.ossrhUsername
+                password = project.ossrhPassword
+            }
+        }
     }
+}
+
+signing {
+    sign publishing.publications.mavenJava
+}
+
+java {
+    withSourcesJar()
+    withJavadocJar()
 }
 
 testing {
