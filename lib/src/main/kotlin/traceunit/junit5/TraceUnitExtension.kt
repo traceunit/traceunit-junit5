@@ -1,10 +1,11 @@
 package traceunit.junit5
 
 import io.opentelemetry.api.trace.Span
+import io.opentelemetry.api.trace.Tracer
 import org.junit.jupiter.api.extension.*
 import traceunit.junit5.annotations.MockTracer
 
-class TraceunitExtension : TestInstancePostProcessor, BeforeEachCallback, AfterEachCallback, ParameterResolver {
+class TraceUnitExtension : TestInstancePostProcessor, BeforeEachCallback, AfterEachCallback, ParameterResolver {
     lateinit var tracerMock: TracerMock
     lateinit var rootSpan: Span
     override fun postProcessTestInstance(testInstance: Any?, context: ExtensionContext?) {

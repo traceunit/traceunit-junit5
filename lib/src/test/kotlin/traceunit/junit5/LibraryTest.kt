@@ -10,7 +10,7 @@ import org.mockito.Mock
 import org.mockito.junit.jupiter.MockitoExtension
 import traceunit.junit5.annotations.MockTracer
 
-@ExtendWith(MockitoExtension::class, TraceunitExtension::class)
+@ExtendWith(MockitoExtension::class, TraceUnitExtension::class)
 class LibraryTest {
 
     @MockTracer
