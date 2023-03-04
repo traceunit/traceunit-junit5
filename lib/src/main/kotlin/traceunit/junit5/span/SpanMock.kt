@@ -5,46 +5,47 @@ import io.opentelemetry.api.common.Attributes
 import io.opentelemetry.api.trace.Span
 import io.opentelemetry.api.trace.SpanContext
 import io.opentelemetry.api.trace.StatusCode
+import traceunit.junit5.context.SpanContextMock
 import java.util.concurrent.TimeUnit
 
-class SpanMock: Span {
+class SpanMock : Span {
     override fun <T : Any?> setAttribute(key: AttributeKey<T>, value: T): Span {
-        TODO("Not yet implemented")
+        return this
     }
 
     override fun addEvent(name: String, attributes: Attributes): Span {
-        TODO("Not yet implemented")
+        return this
     }
 
     override fun addEvent(name: String, attributes: Attributes, timestamp: Long, unit: TimeUnit): Span {
-        TODO("Not yet implemented")
+        return this
     }
 
     override fun setStatus(statusCode: StatusCode, description: String): Span {
-        TODO("Not yet implemented")
+        return this
     }
 
     override fun recordException(exception: Throwable, additionalAttributes: Attributes): Span {
-        TODO("Not yet implemented")
+        return this
     }
 
     override fun updateName(name: String): Span {
-        TODO("Not yet implemented")
+        return this
     }
 
     override fun end() {
-        TODO("Not yet implemented")
+
     }
 
     override fun end(timestamp: Long, unit: TimeUnit) {
-        TODO("Not yet implemented")
+
     }
 
     override fun getSpanContext(): SpanContext {
-        TODO("Not yet implemented")
+        return SpanContextMock()
     }
 
     override fun isRecording(): Boolean {
-        TODO("Not yet implemented")
+        return true
     }
 }

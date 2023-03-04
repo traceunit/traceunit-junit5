@@ -4,16 +4,29 @@
 package traceunit.junit5
 
 import io.opentelemetry.api.trace.Tracer
+import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.extension.ExtendWith
+import org.mockito.Mock
+import org.mockito.junit.jupiter.MockitoExtension
 import traceunit.junit5.annotations.MockTracer
 
-@ExtendWith(TraceunitExtension::class)
+@ExtendWith(MockitoExtension::class, TraceunitExtension::class)
 class LibraryTest {
+
     @MockTracer
     lateinit var tracer: Tracer
 
+    @Mock
+    lateinit var otherClassToInject: OtherClassToInject
+    lateinit var classToMock: ClassToMock
+
+    @BeforeEach
+    fun setUp() {
+        classToMock = ClassToMock(tracer!!, otherClassToInject)
+    }
+
     @org.junit.jupiter.api.Test
     fun name() {
-        println("Test")
+        classToMock.trace()
     }
 }

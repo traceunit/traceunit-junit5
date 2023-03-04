@@ -1,25 +1,36 @@
 package traceunit.junit5
 
+import io.opentelemetry.api.trace.Span
 import org.junit.jupiter.api.extension.*
+import traceunit.junit5.annotations.MockTracer
 
 class TraceunitExtension : TestInstancePostProcessor, BeforeEachCallback, AfterEachCallback, ParameterResolver {
+    lateinit var tracerMock: TracerMock
+    lateinit var rootSpan: Span
     override fun postProcessTestInstance(testInstance: Any?, context: ExtensionContext?) {
-        TODO("Not yet implemented")
+        tracerMock = TracerMock()
     }
 
     override fun beforeEach(context: ExtensionContext?) {
-        TODO("Not yet implemented")
+        rootSpan = tracerMock.spanBuilder("root").startSpan()
+        rootSpan.makeCurrent()
+        var testInstance = context?.testInstance?.get() ?: return
+        testInstance.javaClass.fields.forEach {
+            if (it.isAnnotationPresent(MockTracer::class.java)) {
+                it.set(testInstance, tracerMock)
+            }
+        }
     }
 
     override fun afterEach(context: ExtensionContext?) {
-        TODO("Not yet implemented")
+        rootSpan.end()
     }
 
     override fun supportsParameter(parameterContext: ParameterContext?, extensionContext: ExtensionContext?): Boolean {
-        TODO("Not yet implemented")
+        return false
     }
 
     override fun resolveParameter(parameterContext: ParameterContext?, extensionContext: ExtensionContext?): Any {
-        TODO("Not yet implemented")
+        return false
     }
 }

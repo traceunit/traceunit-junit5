@@ -26,6 +26,7 @@ dependencies {
     // This dependency is used internally, and not exposed to consumers on their own compile classpath.
     implementation 'io.opentelemetry:opentelemetry-api:1.23.1'
     implementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+    implementation 'org.mockito:mockito-junit-jupiter:5.1.1'
     implementation 'com.google.guava:guava:31.1-jre'
 }
 

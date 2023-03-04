@@ -11,47 +11,47 @@ import java.util.concurrent.TimeUnit
 
 class MockedSpanBuilder: SpanBuilder {
     override fun setParent(context: Context): SpanBuilder {
-        TODO("Not yet implemented")
+       return this
     }
 
     override fun setNoParent(): SpanBuilder {
-        TODO("Not yet implemented")
+        return this
     }
 
     override fun addLink(spanContext: SpanContext): SpanBuilder {
-        TODO("Not yet implemented")
+        return this
     }
 
     override fun addLink(spanContext: SpanContext, attributes: Attributes): SpanBuilder {
-        TODO("Not yet implemented")
+        return this
     }
 
     override fun setAttribute(key: String, value: String): SpanBuilder {
-        TODO("Not yet implemented")
+        return this
     }
 
     override fun setAttribute(key: String, value: Long): SpanBuilder {
-        TODO("Not yet implemented")
+        return this
     }
 
     override fun setAttribute(key: String, value: Double): SpanBuilder {
-        TODO("Not yet implemented")
+        return this
     }
 
     override fun setAttribute(key: String, value: Boolean): SpanBuilder {
-        TODO("Not yet implemented")
+        return this
     }
 
     override fun <T : Any?> setAttribute(key: AttributeKey<T>, value: T): SpanBuilder {
-        TODO("Not yet implemented")
+        return this
     }
 
     override fun setSpanKind(spanKind: SpanKind): SpanBuilder {
-        TODO("Not yet implemented")
+        return this
     }
 
     override fun setStartTimestamp(startTimestamp: Long, unit: TimeUnit): SpanBuilder {
-        TODO("Not yet implemented")
+        return this
     }
 
     override fun startSpan(): Span {
