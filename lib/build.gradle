@@ -12,11 +12,15 @@ plugins {
     id 'org.jetbrains.kotlin.jvm' version '1.8.10'
     // Apply the java-library plugin for API and implementation separation.
     id 'java-library'
+    id 'maven-publish'
 }
+group = "io.github.traceunit"
+version = "0.0.1"
 
 repositories {
     // Use Maven Central for resolving dependencies.
     mavenCentral()
+    mavenLocal()
 }
 
 dependencies {
@@ -28,6 +32,19 @@ dependencies {
     implementation 'org.junit.jupiter:junit-jupiter-api:5.9.2'
     implementation 'org.mockito:mockito-junit-jupiter:5.1.1'
     implementation 'com.google.guava:guava:31.1-jre'
+}
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            groupId = 'io.github.traceunit'
+            artifactId = 'traceunit-junit5'
+            version = "0.0.1"
+            from components.java
+        }
+    }
+    repositories {
+        mavenLocal()
+    }
 }
 
 testing {

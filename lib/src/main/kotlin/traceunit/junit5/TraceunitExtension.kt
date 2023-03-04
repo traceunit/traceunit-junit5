@@ -15,7 +15,8 @@ class TraceunitExtension : TestInstancePostProcessor, BeforeEachCallback, AfterE
         rootSpan = tracerMock.spanBuilder("root").startSpan()
         rootSpan.makeCurrent()
         var testInstance = context?.testInstance?.get() ?: return
-        testInstance.javaClass.fields.forEach {
+        testInstance.javaClass.declaredFields.forEach {
+            it.isAccessible = true
             if (it.isAnnotationPresent(MockTracer::class.java)) {
                 it.set(testInstance, tracerMock)
             }
